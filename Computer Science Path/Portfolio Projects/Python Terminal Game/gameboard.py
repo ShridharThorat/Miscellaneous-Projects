@@ -21,24 +21,41 @@ class State:
 
     def set_state(self, state_name, state_values):
         self.name = state_name
-        self.character = State._set_character(state_values[0])
+        self.character = state_values[0]
         self.background_colour = state_values[1]
         self.foreground_colour = state_values[2]
 
     @staticmethod
-    def _load_game_states(filename):
+    def _read_game_states(filename):
         try:
             definitions = open(filename)
-            names = definitions.readline().strip("\n")  # The first line has metadata
-            names_list = State._get_formatted_list(names, ",")
-            data = csv.DictReader(definitions, delimiter=",")
-            bgs = []
-            for bg in data:
-                bg.append(bg['background_colour'])
-            print(bgs)
-            return data
+            data = csv.DictReader(definitions)
+            states = State._get_states_and_values(data)
+            return states
         except Exception as e:
             print("ERROR: File doesn't exist. Check if you are in the working directory")
+
+    @staticmethod
+    def _get_states_and_values(dictReader):
+        '''
+        Returns a dictionary with keys being the different states and values being the state's attributes
+        params:
+            - dictReader: A dictReader object with each item being a dictionary describing the state. 
+                         
+                          For example, a dictionary would be:
+                          `{"state": "empty", "character": "none"}`
+        '''
+        formatted_dictionary = {}
+        for dictionary in dictReader:
+            state_name = dictionary['state']
+            formatted_dictionary[state_name] = []
+            for key, value in dictionary.items():
+                if key.lower() != "state":
+                    if value.lower() != "none":
+                        formatted_dictionary[state_name].append(value)
+                    else:
+                        formatted_dictionary[state_name].append(None)
+        return formatted_dictionary
 
     @staticmethod
     def _get_formatted_list(string, delimiter):
@@ -47,12 +64,8 @@ class State:
             item = item.strip()
         return list
 
-    @staticmethod
-    def _set_character(string_character):
-        if string_character[0].lower() == "none":
-            return None
-        else:
-            return string_character
+    def __repr__(self):
+        return f"State({self.name}, {self.character}, {self.background_colour}, {self.foreground_colour})"
 
 
 class Cell:
@@ -62,12 +75,15 @@ class Cell:
     def __init__(self, x, y, state_name, state_values):
         self.x = x
         self.y = y
-        # should be defaulted to "empty" when used
         self.state = State(state_name, state_values)
 
     def __repr__(self):
-        return f"Cell({self.x}, {self.y})"
+        return f"Cell:\n   x: {self.x}\n   y: {self.y}\n   state: {self.state}\n"
 
 
-file = State._load_game_states("definitions.csv")
-print(file)
+states = State._read_game_states("definitions.csv")
+for key, value in states.items():
+    print("{}: {}".format(key, value))
+
+empty = Cell(0, 0, "empty", states["empty"])
+print(empty)
