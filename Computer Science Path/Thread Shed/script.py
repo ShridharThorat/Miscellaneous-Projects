@@ -1,5 +1,5 @@
 daily_sales = \
-"""Edith Mcbride   ;,;$1.21   ;,;   white ;,; 
+    """Edith Mcbride   ;,;$1.21   ;,;   white ;,; 
 09/15/17   ,Herbert Tran   ;,;   $7.29;,; 
 white&blue;,;   09/15/17 ,Paul Clarke ;,;$12.52 
 ;,;   white&blue ;,; 09/15/17 ,Lucille Caldwell   
@@ -105,5 +105,84 @@ green&white;,;09/15/17,   Gail Phelps   ;,;$30.52
 ;,; green&white&blue   ;,; 09/15/17 , Myrtle Morris 
 ;,;   $22.66   ;,; green&white&blue;,;09/15/17"""
 
-#------------------------------------------------
+# ------------------------------------------------
 # Start coding below!
+
+# Data is in the format, with , separating transaction
+# Name ;,; cost ;,; colour ;,; date ,
+
+# Replace ;,; with : to maintain separation before
+# spliting orders
+daily_sales_replaced = daily_sales.replace(";,;", ":")
+
+
+# Store each order as a string
+daily_sales_replaced = daily_sales_replaced.split(",")
+# print(daily_sales_replaced)
+
+# Store each order as a list instead
+daily_transactions_split = []
+for transaction in daily_sales_replaced:
+    daily_transactions_split.append(transaction.split(":"))
+
+# print(daily_transactions_split)
+
+# Cleanup
+transactions_clean = []
+for transaction in daily_transactions_split:
+    clean = []
+    for information in transaction:
+        clean.append(information.strip())
+    transactions_clean.append(clean)
+
+# print(transactions_clean)
+
+# Separate data
+customers = []
+sales = []
+thread_sold = []
+
+for transaction in transactions_clean:
+    customers.append(transaction[0])
+    sales.append(transaction[1])
+    thread_sold.append(transaction[2])
+
+
+# Determine the total value of the days sales.
+
+total_sales = 0
+for sale in sales:
+    sale = sale.strip("$").strip()
+    sale = float(sale)
+    total_sales += sale
+
+total_sales = round(total_sales, ndigits=2)
+
+print(f"We made ${total_sales} today")
+
+# How much thread of any specific color was sold?
+
+# print(thread_sold)
+thread_sold_split = []
+
+for thread in thread_sold:
+    if thread.find("&"):
+        split = thread.split("&")
+        thread_sold_split.append(split)
+    else:
+        thread_sold_split.append(thread)
+
+
+def colour_count(colour):
+    count = 0
+    for colours in thread_sold_split:
+        count += colours.count(colour)
+    return count
+
+
+colours = ['red', 'yellow', 'green', 'white', 'black', 'blue', 'purple']
+
+for colour in colours:
+    count = colour_count(colour)
+    str = "{} threads with the colour {} were sold".format(count, colour)
+    print(str)
