@@ -167,9 +167,11 @@ def inputExample2(stdscr):
     vertical, horizontal = 1, 1
     q = -1
     x, y = 0, 0
+    screen.addstr(middle_h, actual_middle_w, text)
     while q != ord('q'):  # if some char q is pressed, exit
-        screen.clear()
-        screen.addstr(y, x, text)
+        # screen.clear()
+        
+        screen.addstr(y, x, "")
         screen.refresh()
         q = screen.getch()
         if q == ord("w") and y > 0:
@@ -205,8 +207,8 @@ def main(stdscr):
     stdscr.getch()
 
 # Run the curses application
-curses.wrapper(main)
+# curses.wrapper(black_bg)
 # screen(curses.initscr())
-# inputExample(curses.initscr())
+inputExample2(curses.initscr())
 # screensaver(curses.initscr())
 # print(emoji.emojize('Python is :white_large_square:'))
