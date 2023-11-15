@@ -38,14 +38,12 @@ def get_input():
         user_input = input(" ")
 
         # Determine the choice
-        if user_input in choices:
+        if user_input.upper() in choices:
             for i in range(len(stacks)):
-                if choices[i][0].upper() == user_input:
+                if choices[i][0] == user_input.upper():
                     return stacks[i]
-                # prevent need for shift key
-                elif choices[i][0].lower() == user_input:
-                    return stacks[i]
-
+        elif user_input == "quit":
+            exit()
 
 # Play the Game
 num_user_moves = 0
