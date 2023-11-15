@@ -93,6 +93,43 @@ class LinkedList:
         node1.set_next_node(node2.get_next_node())
         node2.set_next_node(temp)
 
+    # Complete this function:
+    @staticmethod
+    def nth_last_node(linked_list, n):
+        nth_last_node = None
+        count = 1
+        tail = linked_list.head_node
+        while tail:
+            tail = tail.get_next_node()
+            count += 1
+
+            # When the difference between the tail to the head is n
+            # > since we want this to execute until tail is none
+            if count >= n + 1:
+                if nth_last_node == None:
+                    nth_last_node = linked_list.head_node
+                else:
+                    nth_last_node = nth_last_node.get_next_node()
+        return nth_last_node
+
+    # Complete this function:
+    def find_middle(linked_list):
+        fast_node = linked_list.head_node
+        slow_node = linked_list.head_node
+        while fast_node != None:
+            fast_node = fast_node.get_next_node()
+            if fast_node != None:
+                fast_node = fast_node.get_next_node()
+                slow_node = slow_node.get_next_node()
+        return slow_node
+
+    @staticmethod
+    def generate_test_linked_list():
+        linked_list = LinkedList()
+        for i in range(50, 0, -1):
+            linked_list.insert_beginning(i)
+        return linked_list
+
 
 # Test your code by uncommenting the statements below - did your list print to the terminal?
 # ll = LinkedList(5)
@@ -100,13 +137,17 @@ class LinkedList:
 # ll.insert_beginning(5675)
 # ll.insert_beginning(90)
 # print(ll.stringify_list())
+test_list = LinkedList.generate_test_linked_list()
 
-ll = LinkedList()
-for i in range(10):
-    ll.insert_beginning(i)
+# print("Before swapping 9 and 5")
+# print(ll.stringify_list())
+# LinkedList.swap_nodes(ll, 9, 5)
+# print("After swapping 9 and 5")
+# print(ll.stringify_list())
 
-print("Before swapping 9 and 5")
-print(ll.stringify_list())
-LinkedList.swap_nodes(ll, 9, 5)
-print("After swapping 9 and 5")
-print(ll.stringify_list())
+# Use this to test your code:
+print(test_list.stringify_list())
+nth_last = LinkedList.nth_last_node(test_list, 4)
+middle_node = LinkedList.find_middle(test_list)
+print(nth_last.value)
+print(middle_node.value)
