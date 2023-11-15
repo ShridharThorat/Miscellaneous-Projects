@@ -81,7 +81,7 @@ class Game:
                 center += " "
         return center
 
-    def draw_barrier(self, x, y):
+    def draw_barrier(self):
         barrier = ""
         game_height_length = self._difficulties[self._difficulty][0]
         cells_vertical, cells_across = game_height_length
@@ -91,7 +91,6 @@ class Game:
                 barrier += self.corner
             else:
                 barrier += self.ceil_floor
-        print(barrier)
         return barrier
 
     def _read_states(self):
