@@ -46,3 +46,67 @@ class LinkedList:
                     current_node = None
                 else:
                     current_node = next_node
+
+    @staticmethod
+    def swap_nodes(input_list, val1, val2):
+        if val1 == val2:
+            print("Elements are the same - no swap needed")
+            return
+
+        node1 = input_list.head_node
+        node2 = input_list.head_node
+        node1_prev = None
+        node2_prev = None
+
+        # Find the node with val1 and its parent
+        while node1 is not None:
+            if node1.get_value() == val1:
+                break
+            node1_prev = node1
+            node1 = node1.get_next_node()
+
+        # Find the node with val2 and its parent
+        while node2 is not None:
+            if node2.get_value() == val2:
+                break
+            node2_prev = node2
+            node2 = node2.get_next_node()
+
+        # If the node isn't found
+        if (node1 is None or node2 is None):
+            print("Swap not possible - one or more element is not in the list")
+            return
+
+        # Swap node1 and node2 by changing the link of their parent's
+        if node1_prev is None:
+            input_list.head_node = node2
+        else:
+            node1_prev.set_next_node(node2)
+
+        if node2_prev is None:
+            input_list.head_node = node1
+        else:
+            node2_prev.set_next_node(node1)
+
+        # Update pointers of node1 and node2
+        temp = node1.get_next_node()
+        node1.set_next_node(node2.get_next_node())
+        node2.set_next_node(temp)
+
+
+# Test your code by uncommenting the statements below - did your list print to the terminal?
+# ll = LinkedList(5)
+# ll.insert_beginning(70)
+# ll.insert_beginning(5675)
+# ll.insert_beginning(90)
+# print(ll.stringify_list())
+
+ll = LinkedList()
+for i in range(10):
+    ll.insert_beginning(i)
+
+print("Before swapping 9 and 5")
+print(ll.stringify_list())
+LinkedList.swap_nodes(ll, 9, 5)
+print("After swapping 9 and 5")
+print(ll.stringify_list())
