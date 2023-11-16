@@ -1,4 +1,4 @@
-from node import Node
+from linked_list import Node
 
 class Stack:
   def __init__(self, limit=1000):

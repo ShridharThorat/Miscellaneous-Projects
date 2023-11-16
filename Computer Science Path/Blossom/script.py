@@ -1,3 +1,3 @@
-import sys
-sys.path.append('../Data_Structures')
-import linked_list
+from data_structures import Node
+
+print(Node(1).get_value())
