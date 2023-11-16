@@ -22,7 +22,7 @@ def fibonacci_list(n):
 def fibonacci_three(n):
     first = 1
     second = 1
-    third = 1 # Keep it 1 so the return is correct when n <= 2
+    third = 0
 
     for i in range(2, n):
         third = first + second
