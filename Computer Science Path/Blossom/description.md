@@ -9,21 +9,21 @@ In this project, we are going to implement a hash map to relate the names of flo
 
 ### Building the HashMap
 
-- [ ] **1.**  The underlying data structure for Blossom is going to be a key-value store that uses the common names for flowers as the key and saves the floral meaning of the flower as the value.
+- [x] **1.**  The underlying data structure for Blossom is going to be a key-value store that uses the common names for flowers as the key and saves the floral meaning of the flower as the value.
 
     In order to implement this functionality, we’re going to build out a hash map with separate chains of linked lists at every index.
 
     First, let’s define our `HashMap` class.
 
 
-- [ ] **2.** The first thing that we’ll need for our hash map is an array. Python’s lists behave similar to an array, but we’ll need to keep track and enforce the list’s size to make the resemblance stronger.
+- [x] **2.** The first thing that we’ll need for our hash map is an array. Python’s lists behave similar to an array, but we’ll need to keep track and enforce the list’s size to make the resemblance stronger.
 
-    Give `HashMap` a constructor that takes a size parameter. Save `size` into` self.array_size`.
+    Give `HashMap` a constructor that takes a size parameter. Save `size` into`self.array_size`.
 
     After that, create a list of `None` objects of length size and save it into `self.array`.
 
 
-- [ ] **3.** In order to implement a hash map, we need to implement four different methods.
+- [x] **3.** In order to implement a hash map, we need to implement four different methods.
 
     The first two are the internal methods needed to perform the basic responsibilities of a hash map: `.hash()` and `.compress()`.
 
@@ -34,36 +34,36 @@ In this project, we are going to implement a hash map to relate the names of flo
     Define a method called `.hash()` that takes both `self` and `key` as parameters.
 
 
-- [ ] **4.** Calculate the hash code for the key by calling `key.encode()` and performing the sum on the resulting list-like object.
+- [x] **4.** Calculate the hash code for the key by calling `key.encode()` and performing the sum on the resulting list-like object.
 
 
-- [ ] **5.** Now that we have a hash function, that returns a number, we’ll also need a compression function that reduces this number into an array index.
+- [x] **5.** Now that we have a hash function, that returns a number, we’ll also need a compression function that reduces this number into an array index.
 
     Define a `.compress()` method that takes a `hash_code` parameter. Return the result of calculating the remainder of dividing `hash_code` by `self.array_size`.
 
 
-- [ ] **6.** With our hash and compression functions written, all we need to create a basic hash map are our `.assign()` and `.retrieve()` methods. Let’s start with `.assign()`.
+- [x] **6.** With our hash and compression functions written, all we need to create a basic hash map are our `.assign()` and `.retrieve()` methods. Let’s start with `.assign()`.
 
     Define a `.assign()` method that takes three parameters: `self`, `key`, and `value`. Get the hash code by plugging key into `.hash()` and then get the array index by plugging the resulting hash code into `.compress()`. Save the result into the variable `array_index`.
 
 
-- [ ] **7.** In the array, at the address `array_index`, save both the key and the value as a list: `[key, value]`.
+- [x] **7.** In the array, at the address `array_index`, save both the key and the value as a list: `[key, value]`.
 
 
-- [ ] **8.** Now that we have an assignment function, let’s also build out our retrieval function.
+- [x] **8.** Now that we have an assignment function, let’s also build out our retrieval function.
 
     Define a `.retrieve()` method that takes two parameters: `self` and `key`.
 
 
-- [ ] **9.** `.retrieve()` should find the hash code for key by plugging it into `.hash()` and then find the array index by plugging that hash code into `.compress()`.
+- [x] **9.** `.retrieve()` should find the hash code for key by plugging it into `.hash()` and then find the array index by plugging that hash code into `.compress()`.
 
-Save that index into a variable called `array_index`
-
-
-- [ ] **10.** Save the value of `self.array` at `array_index` into a variable called `payload`.
+    Save that index into a variable called `array_index`
 
 
-- [ ] **11.** If `payload` is not `None`, then we know it’s a list that looks like `[key, value]`.
+- [x] **10.** Save the value of `self.array` at `array_index` into a variable called `payload`.
+
+
+- [x] **11.** If `payload` is not `None`, then we know it’s a list that looks like `[key, value]`.
 
     Check the first item (`payload[0]`) and compare it with `key`. If they are the same, return the second item in `payload` (the value!).
 
@@ -72,13 +72,13 @@ Save that index into a variable called `array_index`
 ### Adding in the Linked List
 
 
-- [ ] **12.** Let’s add in the separate chaining aspect of our algorithm. Import the linked list and node library by calling
+- [x] **12.** Let’s add in the separate chaining aspect of our algorithm. Import the linked list and node library by calling
     ```py
     from linkedList import Node, LinkedList
     ```
 
 
-- [ ] **13.** In `HashMap.__init__`, find the line where we created a list of `None` objects.
+- [x] **13.** In `HashMap.__init__`, find the line where we created a list of `None` objects.
 
     Change this so that `self.array` instead is a list of `LinkedList`s.
 
@@ -87,21 +87,21 @@ Save that index into a variable called `array_index`
 
 ### Adding in Separate Chaining: Assignment
 
-- [ ] **14.** In `.assign()`, we’re going to be replacing the assign logic after getting the `array_index` from the `.hash()` and `.compressor()` methods.
+- [x] **14.** In `.assign()`, we’re going to be replacing the assign logic after getting the `array_index` from the `.hash()` and `.compressor()` methods.
 
-Create a new Node object with value `[key, value]`. Assign that `Node` object to a variable called `payload`.
-
-
-- [ ] **15.** We’ll need to check if the key exists in the `LinkedList` before we add our new `payload` to it. Save `self.array[array_index]` into the variable `list_at_array`.
+    Create a new Node object with value `[key, value]`. Assign that `Node` object to a variable called `payload`.
 
 
-- [ ] **16.** Iterate through `list_at_array` using a `for` loop. For every item in `list_at_array`, check if the key (the element at index 0) is the same as the key we’re trying to assign.
+- [x] **15.** We’ll need to check if the key exists in the `LinkedList` before we add our new `payload` to it. Save `self.array[array_index]` into the variable `list_at_array`.
 
 
-- [ ] **17.** If we do find a key at one of the items in the linked list, overwrite its value with `value`.
+- [x] **16.** Iterate through `list_at_array` using a `for` loop. For every item in `list_at_array`, check if the key (the element at index 0) is the same as the key we’re trying to assign.
 
 
-- [ ] **18.** If we’ve iterated through the list and not found our key, we need to add it.
+- [x] **17.** If we do find a key at one of the items in the linked list, overwrite its value with `value`.
+
+
+- [x] **18.** If we’ve iterated through the list and not found our key, we need to add it.
 
     Remove the line where we assign
     ```py
@@ -113,34 +113,34 @@ Create a new Node object with value `[key, value]`. Assign that `Node` object to
 
 ### Adding in Separate Chaining: Retrieval
 
-- [ ] **19.** Now we’re going to update `.retrieve()` to use separate chaining. We’re going to rewrite the code after we get our `array_index`.
+- [x] **19.** Now we’re going to update `.retrieve()` to use separate chaining. We’re going to rewrite the code after we get our `array_index`.
 
-Using the `array_index` variable, get the `LinkedList` object at that index in `self.array`. Before we called this `payload` but since it represents a different type of object, let’s name it something different.
+    Using the `array_index` variable, get the `LinkedList` object at that index in `self.array`. Before we called this `payload` but since it represents a different type of object, let’s name it something different.
 
-Save the result into a variable called `list_at_index`.
-
-
-- [ ] **20.** .Iterate through the linked list similarly to how `.assign()` did, checking the key in each part of the list to see if it’s the same as our key.
+    Save the result into a variable called `list_at_index`.
 
 
-- [ ] **21.** If you do find the key, return the `value` (at index `1` in the node’s value), otherwise return `None`!
+- [x] **20.** .Iterate through the linked list similarly to how `.assign()` did, checking the key in each part of the list to see if it’s the same as our key.
+
+
+- [x] **21.** If you do find the key, return the `value` (at index `1` in the node’s value), otherwise return `None`!
 
 
 ### Adding Flower Definitions
 
-- [ ] **22.** Now lets add in some flower definitions! Use
+- [x] **22.** Now lets add in some flower definitions! Use
     ```py
     from blossom_lib import flower_definitions
     ```
 
 
-- [ ] **23.** Now let’s create a new instance of our `HashMap` create an instance called `blossom`. Make the list of our new `HashMap` the same length as `flower_definitions`.
+- [x] **23.** Now let’s create a new instance of our `HashMap` create an instance called `blossom`. Make the list of our new `HashMap` the same length as `flower_definitions`.
 
 
-- [ ] **24.** Now, for every element of flower_definitions, assign the `value` (index 1) to its `key` (index 0) using `blossom.assign()`.
+- [x] **24.** Now, for every element of flower_definitions, assign the `value` (index 1) to its `key` (index 0) using `blossom.assign()`.
 
 
-- [ ] **25.** Now use our app! Look up a flower’s meaning using `blossom.retrieve('daisy')`. Try printing it out!
+- [x] **25.** Now use our app! Look up a flower’s meaning using `blossom.retrieve('daisy')`. Try printing it out!
 
 Does it work? Next, try looking up another flower. Is the flower you’re looking for missing? How would you add it in?
 
