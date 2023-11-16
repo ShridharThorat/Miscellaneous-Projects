@@ -33,6 +33,33 @@ class LinkedList:
                 string_list += str(current_node.get_value()) + "\n"
             current_node = current_node.get_next_node()
         return string_list
+    
+    #Fill in Function
+    def find_max(self):
+        #Write Code Here
+        current_node = self.head_node
+        maximum = current_node.get_value()
+        while current_node != None:
+            current_node = current_node.get_next_node()
+            if current_node != None and current_node.get_value() != None:
+                if current_node.get_value() > maximum:
+                    maximum = current_node.get_value()
+
+        return maximum
+    
+    def sort_linked_list(self):
+        print("The original linked list is:\n{0}".format(self.stringify_list()))
+        new_linked_list = LinkedList()
+        #Write Code Here!
+        maximum = self.find_max()
+        new_linked_list.insert_beginning(maximum)
+        self.remove_node(maximum)
+        while self.head_node != None:
+            maximum = self.find_max()
+            new_linked_list.insert_beginning(maximum)
+            self.remove_node(maximum)
+
+        return new_linked_list
 
     def remove_node(self, value_to_remove):
         current_node = self.get_head_node()
@@ -146,8 +173,36 @@ test_list = LinkedList.generate_test_linked_list()
 # print(ll.stringify_list())
 
 # Use this to test your code:
-print(test_list.stringify_list())
+# print(test_list.stringify_list())
 nth_last = LinkedList.nth_last_node(test_list, 4)
 middle_node = LinkedList.find_middle(test_list)
-print(nth_last.value)
-print(middle_node.value)
+# print(nth_last.value)
+# print(middle_node.value)
+
+# Sorting
+#Test Cases
+ll = LinkedList("Z")
+ll.insert_beginning("C")
+ll.insert_beginning("Q")
+ll.insert_beginning("A")
+print("The sorted linked list is:\n{0}".format(ll.sort_linked_list().stringify_list()))
+
+ll_2 = LinkedList(1)
+ll_2.insert_beginning(4)
+ll_2.insert_beginning(18)
+ll_2.insert_beginning(2)
+ll_2.insert_beginning(3)
+ll_2.insert_beginning(7)
+print("The sorted linked list is:\n{0}".format(ll_2.sort_linked_list().stringify_list()))
+
+ll_3 = LinkedList(-11)
+ll_3.insert_beginning(44)
+ll_3.insert_beginning(118)
+ll_3.insert_beginning(1000)
+ll_3.insert_beginning(23)
+ll_3.insert_beginning(-92)
+print("The sorted linked list is:\n{0}".format(ll_3.sort_linked_list().stringify_list()))
+
+#Runtime
+runtime = "N^2"
+print("The runtime of sort_linked_list is O({0})\n\n".format(runtime))
