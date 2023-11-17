@@ -1,4 +1,7 @@
+from collections import deque
 # Define your "TreeNode" Python class below
+
+
 class TreeNode:
     def __init__(self, value):
         self.value = value
@@ -14,8 +17,6 @@ class TreeNode:
                          for child in self.children
                          if child.value != child_node.value]
 
-    
-
     def traverse(self):
         print("Traversing...")
         nodes_to_visit = [self]
@@ -24,14 +25,31 @@ class TreeNode:
             print(current_node.value)
             nodes_to_visit += current_node.children
 
+    def __str__(self):
+        stack = deque()
+        stack.append([self, 0])
+        level_str = "\n"
+        while len(stack) > 0:
+            node, level = stack.pop()
 
-root = TreeNode("CEO")
-first_child = TreeNode("Vice-President")
-second_child = TreeNode("Head of Marketing")
-third_child = TreeNode("Marketing Assistant")
+            if level > 0:
+                level_str += "| "*(level-1) + "|-"
+            level_str += str(node.value)
+            level_str += "\n"
+            level += 1
+            for child in reversed(node.children):
+                stack.append([child, level])
 
-root.add_child(first_child)
-root.add_child(second_child)
-second_child.add_child(third_child)
+        return level_str
 
-root.traverse()
+
+# root = TreeNode("CEO")
+# first_child = TreeNode("Vice-President")
+# second_child = TreeNode("Head of Marketing")
+# third_child = TreeNode("Marketing Assistant")
+
+# root.add_child(first_child)
+# root.add_child(second_child)
+# second_child.add_child(third_child)
+
+# root.traverse()
