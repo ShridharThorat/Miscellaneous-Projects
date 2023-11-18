@@ -10,6 +10,24 @@ number_to_cell = {
 }
 
 
+def map_screen_to_board(pos: tuple[int, int], top_left_corner: tuple[int, int], cell_width: int, cell_height: int):
+    """
+    Maps a position on the screen to a cell on the board
+
+    ### Args:
+        - `pos` (tuple[int, int]): The position of the cell on the screen
+        - `board` (list[list[Union[int, str]]]): A 2D array with rows for the y-axis and columns for the x-axis
+
+    ### Returns:
+        - A tuple(int, int) representing the location of the cell on the board
+    """
+    x, y = pos
+    offset_x, offset_y = top_left_corner
+    board_x = (x - offset_x) / (cell_width + 1)
+    board_y = (y - offset_y) / (cell_height + 1)
+    return (int(board_x), int(board_y))
+
+
 def initialise_board(width: int = 9, height: int = 9, num_mines: int = 10):
     """ Initialises a board with `width` cells across and `height` cells vertically 
         that has `num_mines` mines
@@ -137,12 +155,11 @@ def find_all_connected_empty_cells(location: tuple[int, int],
 
     connected_numbered_cells = set()
     connected_empty_cells = set()
-    cells_to_check = deque() # Operates as a stack -> LIFO
-    
+    cells_to_check = deque()  # Operates as a stack -> LIFO
+
     connected_empty_cells.add(location)
     cells_to_check.appendleft(location)
     while len(cells_to_check) > 0:
-        num_iters += 1
         cell = cells_to_check.popleft()
         x, y = cell
         for y_adj in range(y - max_left_down, y + max_right_up):
@@ -155,7 +172,6 @@ def find_all_connected_empty_cells(location: tuple[int, int],
                             cells_to_check.appendleft((x_adj, y_adj))
                     else:
                         connected_numbered_cells.add((x_adj, y_adj))
-    print("iterations: {}".format(num_iters))
     return set.union(connected_empty_cells, connected_numbered_cells)
 
 
@@ -320,3 +336,4 @@ reveal_cell(cell, test, revealed)
 # print("Moving\n")
 # move_mine((3, 0), test, mine_locations)
 # print_board(test)
+print(map_screen_to_board((45+(4*9), 22), (45, 20), 3, 1))
