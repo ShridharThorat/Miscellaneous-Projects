@@ -9,6 +9,18 @@ number_to_cell = {
 
 
 def createBoard(width: int = 9, height: int = 9, num_mines: int = 10):
+    """ Initialises a board with `width` cells across and `height` cells vertically 
+        that has `num_mines` mines
+
+    ### Args:
+        - `width` (int, optional): The number of cells across. Defaults to 9.
+        - `height` (int, optional): The number of cells vertically. Defaults to 9.
+        - `num_mines` (int, optional): The number of mines on the board. Defaults to 10.
+
+    ### Returns:
+        `List[List[Union[str, int]]]`: _description_
+    """
+    
     # A board[x][y] is of size width x height
     board = [[0 for j in range(width)] for i in range(height)]
     num_placed_mines = 0
@@ -29,25 +41,18 @@ def createBoard(width: int = 9, height: int = 9, num_mines: int = 10):
 
 
 def number_all_cells(board: list[list[Union[int, str]]]):
-    '''
+    """
     Numbers all cells on the board with the number of adjacent mines. 
 
-    Returns:
+    ### Returns:
         - Void. Modifies the given board
-    '''
+    """
     for y in range(len(board)):  # For each row
         for x in range(len(board[0])):  # For each column
             # If we see a mine, ignore it
 
             if board[y][x] == "*":  # Not a mine
                 continue
-            # Otherwise do our tests:
-            # print(f"\tColumn: {x+1}", end='')
-
-            # Every Element has 8 surrounding cells
-            # (y-1, x-1), (y-1, x), (y-1,x+1)
-            # (y,   x-1), (y  , x), (y,x+1)
-            # (y+1, x-1), (y+1, x), (y+1,x+1)
             mines_nearby = find_specified_neighbours((x, y), str, board)
 
             # Once the 3x3 area has been explored, change the cell value
@@ -60,15 +65,19 @@ def number_all_cells(board: list[list[Union[int, str]]]):
             # Element in edge -> check 2 sides
 
 
-def find_specified_neighbours(location: tuple[int,int], neighbour_type: Union[str, int], n:int, board: list[list[Union[int, str]]]):
-    '''
+def find_specified_neighbours(location: tuple[int, int],
+                              neighbour_type: Union[str, int],
+                              board: list[list[Union[int, str]]],
+                              n: int = 3):
+    """
     Finds neighbours in a `n by n` area surrounding the cell at location on the board
         Every Element has 8 surrounding cells. Some may or may not exist        
         such as if the cell is in a corner or an edge
         ```py
-        (y-1, x-1), (y-1, x), (y-1,x+1)
-        (y,   x-1), (y  , x), (y,x+1)
-        (y+1, x-1), (y+1, x), (y+1,x+1)
+        # For example: A 3 by 3 area
+        (y-1, x-1), (y-1, x), (y-1, x+1)
+        (y,   x-1), (y  , x), (y  , x+1)
+        (y+1, x-1), (y+1, x), (y+1, x+1)
         ```
 
     ### Args:
@@ -76,25 +85,29 @@ def find_specified_neighbours(location: tuple[int,int], neighbour_type: Union[st
         - `neighbour_type`: 
             - If `int` then the function finds neighbouring cells. 
             - If `str` then it finds neighbouring mines
-        - `n`: is the size of the entire sub-area being searched including the cell at `location` on the board
-            - WARNING:: n must be odd
         - `board`: a list of lists with `int`s (for cells) and `str`s (for mines). 
-        
+        - `n`: is the size of the entire sub-area being searched including the cell at `location` on the board
+            - #### Note: defaults to 3
+            - ### WARNING: n should be odd for a uniform area
+
     ### Returns:
         - A list of tuples(int, int) representing the locations for the neighbours. 
-    '''
+    """
     x, y = location
-    
-    if (n+1)%2 != 0:
+
+    if (n+1) % 2 != 0:
         print("ERROR: Invalid. n must be odd")
-        return None 
-    
-    # Looking in a 3x3 area the item all elements
+        return None
+    else:
+        max_left_down = n//2
+        max_right_up = max_left_down + 1 # + 1 since a range stops before the second value
+
     neighbours = []
-    for y_neighbour in range(y-1, y+2):
-        for x_neighbour in range(x-1, x+2):
+    for y_neighbour in range(y - max_left_down, y + max_right_up):
+        for x_neighbour in range(x - max_left_down, x + max_right_up):
             not_in_left_corner = y_neighbour >= 0 and x_neighbour >= 0
-            not_in_right_corner = y_neighbour < len(board) and x_neighbour < len(board[0])
+            not_in_right_corner = y_neighbour < len(
+                board) and x_neighbour < len(board[0])
             not_the_same_cell = (y_neighbour, x_neighbour) != (y, x)
             if not_in_left_corner and not_in_right_corner and not_the_same_cell:
                 if isinstance(board[y_neighbour][x_neighbour], neighbour_type):
@@ -103,7 +116,7 @@ def find_specified_neighbours(location: tuple[int,int], neighbour_type: Union[st
 
 
 def move_mine(pos: tuple[int, int], board: list[list[Union[int, str]]], mine_locations: list[int]):
-    '''
+    """
     Moves a mine from one location to another while updating neighbouring cells 
 
     Uses:
@@ -111,7 +124,7 @@ def move_mine(pos: tuple[int, int], board: list[list[Union[int, str]]], mine_loc
 
     Returns:
         - False if a move is unsuccesful and True otherwise
-    '''
+    """
     if pos not in mine_locations:
         # print("WARNING: the location {} doesn't contain a mine".format(pos)) # Just for testing
         return False
@@ -139,13 +152,13 @@ def move_mine(pos: tuple[int, int], board: list[list[Union[int, str]]], mine_loc
 
 
 def number_specific_cells(cells_to_update: list[tuple[int, int]],  board: list[list[Union[int, str]]]):
-    '''
+    """
     Finds a list of a mines for the `cells_to_update` and updates the values for cells
 
     Args:
         - `cells_to_update` is a list of coordinates of the cells to update on the `board`
         - `board` is a list of lists representing numbered `cells: int` and `mines: str`
-    '''
+    """
     for cell_coords in cells_to_update:
         x, y = cell_coords
         mines_nearby = find_specified_neighbours(cell_coords, str, board)
@@ -153,11 +166,11 @@ def number_specific_cells(cells_to_update: list[tuple[int, int]],  board: list[l
 
 
 def printBoard(board: list[list[Union[int, str]]]):
-    '''
+    """
     Prints a matrix representation of the board with `|` for the walls and one whitespace between elements
     Returns:
         Void. Prints on the command line instead
-    '''
+    """
     for row in board:
         print("| ", end='')
         for el in row:
