@@ -48,13 +48,13 @@ class Game:
     ceil_floor = "-"
     wall = "|"
 
-    def __init__(self, filename):
+    def __init__(self, filename="definitions.csv"):
         '''
         Initialises a minesweeper game by reading a csv file.
         '''
         self._difficulty = None
         self.states = Game._read_file(filename)
-        # self._read_states()
+        self._read_states()
 
     def set_difficulty(self, difficulty):
         if difficulty in self._difficulties.keys():
@@ -136,6 +136,8 @@ class Game:
 # game = Game()
 # print(game._draw_cell(0, 0, "empty"))
 
-# game._set_difficulty("easy")
+# game.set_difficulty("easy")
+# print(game._difficulty)
+# print(game._difficulties)
 
-# game.draw_barrier(0, 0)
+# print(game.draw_barrier())

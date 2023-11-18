@@ -96,9 +96,14 @@ class Minesweeper:
             self.highlight_selection(screen, y_pos, self.start_instructions)
 
             key = screen.getch()
-            if key == ord("s") and y_pos < max_height:
+            # Move the cursor only up and down
+            if key == ord("s"):
+                if y_pos == max_height: # loop to the top
+                    y_pos -= len(instructions) -1
                 y_pos += distance_height
-            elif key == ord("w") and y_pos > min_height:
+            elif key == ord("w"):
+                if y_pos == min_height:  # loop to the bottom
+                    y_pos += len(instructions)-1
                 y_pos -= distance_height
 
             # if enter is pressed
@@ -109,7 +114,7 @@ class Minesweeper:
                 elif y_pos == min_height+1:
                     self.game.set_difficulty("hard")
                 elif y_pos == min_height+2:
-                    self.game.set_difficulty("hard")
+                    self.game.set_difficulty("expert")
                 elif y_pos == min_height+3:
                     screen.clear()
                     curses.endwin()
@@ -122,17 +127,23 @@ class Minesweeper:
             
     def game_screen(self, screen):
         distance_height, distance_width = 1, 0
-        x_start, y_start = 20, 5
+        x_start, y_start = self.center_width, 6
         screen.clear()
         screen.refresh()
         screen.move(0, 0)
         q = screen.getch()
+        print(x_start)
+        ex = "|   |   |   |   |   |   |   |   |   |"
         while q != ord("q"):
             screen.refresh()
             barrier = self.game.draw_barrier()
-            for i in range(self.game._difficulties[self.game._difficulty][0][1]):
-                screen.addstr(y_start+i, x_start, barrier, curses.COLOR_WHITE | curses.A_BOLD)
+            print(len(barrier))
+            for i in range(0,self.game._difficulties[self.game._difficulty][0][1]*2+1,2):
+                screen.addstr(y_start+i, x_start-len(barrier)//2, barrier, curses.COLOR_WHITE | curses.A_BOLD)
+            for i in range(1,self.game._difficulties[self.game._difficulty][0][1]*2+1,2):
+                screen.addstr(y_start+i, x_start-len(barrier)//2, ex, curses.COLOR_WHITE | curses.A_REVERSE)
             q = screen.getch()
+        # After q is pressed, clear and refresh
         screen.clear()
         screen.refresh()
 
