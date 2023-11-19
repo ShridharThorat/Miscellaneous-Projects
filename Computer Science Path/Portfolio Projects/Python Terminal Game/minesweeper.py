@@ -123,7 +123,7 @@ class Board:
         self.flags = 0
         self.mine_locations = []
         self.revealed_cells_count = 0
-        self.max_revealed_cells = self.width * self.height - self.num_mines
+        self.max_revealed_cells = self.width * self.height
         self.board = None
         self.board = self.create_board()
 
@@ -155,6 +155,7 @@ class Board:
                 cell.revealed = True  # Since we want to see the character on the screen
                 cell.flagged = True
                 cell.character = states["flag"]["character"]
+                self.revealed_cells_count += 1
                 self.flags += 1
 
     def unflag_cell(self, location: tuple[int, int],  states: dict[str, dict[str, int]]):
@@ -162,6 +163,7 @@ class Board:
         if cell.flagged and self.flags > 0:
             cell.revealed = False
             cell.flagged = False
+            self.revealed_cells_count -= 1
             self.flags -= 1
             if cell.is_mine:
                 cell.character = states["mine"]["character"]
@@ -408,7 +410,7 @@ class Board:
 
 
 minesweeper = Minesweeper()
-minesweeper.initialise_board("easy")
+minesweeper.initialise_board("super easy")
 board = minesweeper.game_board
 
 # print(board)
@@ -416,29 +418,26 @@ board = minesweeper.game_board
 print(board)
 keep_playing = True
 while (keep_playing):
-    print()
     choice = input("Enter a coord as x, y: ")
     # x, y to tuple
     choice = choice.split(",")
     cords = (int(choice[0])-1, int(choice[1])-1)
     if len(choice) == 3:
         if choice[2].lower() == "f":
-            print("You FLAGGED: '{}'".format(cords))
             board.flag_cell(cords, board.states)
+            print("You FLAGGED: '{} Total Revealed: {}".format(cords, board.revealed_cells_count))
     else:
-        print("You REVEALED: '{}'".format(cords))
         keep_playing = board.reveal_all_cells(cords)
+        print("You REVEALED: '{}' Total Revealed: {}".format(cords, board.revealed_cells_count))
     print(board)
     
     if board.revealed_cells_count == board.max_revealed_cells:
-        print("You Won!")
-        break
+        keep_playing = False
 
-for row in board.board:
-    for cell in row:
-        if cell.is_mine and cell.revealed:
-            print("You Hit a mine. Get rekt")
-            break
+if board.revealed_cells_count == board.max_revealed_cells:
+    print("You won")
+else:
+    print("You lost")
 
 
 # print("Moving\n")
