@@ -1,0 +1,4 @@
+difficulty, board_size, mines
+"easy", (9; 9), 10
+"hard", (15; 15), 40
+"exper", (30; 15), 99

@@ -1,6 +1,6 @@
 state,character,background_colour,foreground_colour
-empty,none,curses.COLOR_WHITE,curses.COLOR_BLACK
-selected,none,curses.COLOR_BLACK,curses.COLOR_WHITE
-mine,@,curses.COLOR_RED,curses.COLOR_BLACK
-flag,!,curses.COLOR_WHITE,curses.COLOR_MAGENTA
-question,?,curses.COLOR_WHITE,curses.COLOR_BLUE
+hidden,X,white,black
+revealed,none,black,white
+mine,@,red,black
+flag,F,white,yellow
+question,?,white,magenta
