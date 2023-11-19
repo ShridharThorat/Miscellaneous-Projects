@@ -87,9 +87,9 @@ def number_all_cells(mine_locations: list[tuple[int, int]], board: list[list[Uni
 
 
 def find_specified_neighbours(location: tuple[int, int],
-                              neighbour_type: Union[str, int],
-                              board: list[list[Union[int, str]]],
-                              n: int = 3):
+                            neighbour_type: Union[str, int],
+                            board: list[list[Union[int, str]]],
+                            n: int = 3):
     """
     Finds neighbours in a `n by n` area surrounding the cell at location on the board
         ```py
@@ -131,8 +131,8 @@ def find_specified_neighbours(location: tuple[int, int],
 
 
 def find_all_connected_empty_cells(location: tuple[int, int],
-                                   board: list[list[Union[int, str]]],
-                                   n: int = 3):
+                                board: list[list[Union[int, str]]],
+                                n: int = 3):
     """
     Finds all numbered cells adjacent to the empty cell, searching in a `n by n` area surrounding each cell at a given location on the board    
     ### Args:
@@ -212,7 +212,7 @@ def move_mine(pos: tuple[int, int], board: list[list[Union[int, str]]], mine_loc
     width = len(board[0])
     height = len(board)
     pos_x, pos_y = pos
-
+    
     # Get the neighbours for the mine to move
     cells_to_update = find_specified_neighbours((pos_x, pos_y), int, board)
     x = randint(0, width-1)
@@ -336,4 +336,4 @@ reveal_cell(cell, test, revealed)
 # print("Moving\n")
 # move_mine((3, 0), test, mine_locations)
 # print_board(test)
-print(map_screen_to_board((45+(4*9), 22), (45, 20), 3, 1))
+# print(map_screen_to_board((45+(4*9), 22), (45, 20), 3, 1))
