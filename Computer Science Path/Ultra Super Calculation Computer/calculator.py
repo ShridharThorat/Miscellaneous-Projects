@@ -120,7 +120,7 @@ class UltraSuperCalculator:
 
     def divide(self, address_num1, address_num2) -> int:
         """
-        Divides the number in address_num1 by the number in address_num2. 
+        Does integer division on the number in address_num1 by the number in address_num2. 
 
         Prints an error if the number in address_num2 is 0
         """
