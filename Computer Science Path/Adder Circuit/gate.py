@@ -1,3 +1,8 @@
+def ERROR_check_bulk(arr: list[int]) -> ValueError:
+    for num in arr:
+        ERROR_check(num)
+    
+
 def ERROR_check(a: int) -> ValueError:
     if a not in [0, 1]:
         raise ValueError("Inputs must be 0 or 1")
@@ -89,5 +94,3 @@ def XOR_gate(a: int, b: int) -> int:
         return 0
     else:
         return 1
-
-print(ERROR_check(1))
