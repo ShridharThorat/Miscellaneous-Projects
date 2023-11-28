@@ -43,6 +43,17 @@ except Exception as e:
 
 
 def ALU(a: int, b: int, c: int, opcode: int):
+    """Outputs an operation defined by `opcode` on a combination of `a`, `b`, and `c`
+
+    Args:
+        a (int): a single binary number
+        b (int): a single binary number
+        c (int): a single binary number
+        opcode (int): a single binary number (in this case)
+
+    Returns:
+        _type_: A tuple (sum bit, carry bit)
+    """
     ERROR_check_bulk([a, b, c, opcode])
     if opcode == 0:
         s, c = half_adder(a, b)

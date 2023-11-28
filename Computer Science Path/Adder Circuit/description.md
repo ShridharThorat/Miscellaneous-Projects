@@ -100,6 +100,6 @@ The full adder takes in `a`, `b`, and a carry-in bit `c`. It returns a sum bit `
     Does your ALU produce the results you expect?
 <br>
 
-- [ ] **11.** Wow! You have a basic Arithmetic Logic Unit that can produce different outputs with the same inputs. <br>
+- [x] **11.** Wow! You have a basic Arithmetic Logic Unit that can produce different outputs with the same inputs. <br>
 
     Most ALUs also allow for incrementing, decrementing, and subtraction. Can you figure out how to implement incrementation (adding 1 to a) in your ALU? You will probably need a bigger opcode!
