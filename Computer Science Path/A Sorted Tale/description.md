@@ -17,7 +17,7 @@ The owner wants you to research methods of fixing the book ordering throughout t
 
 ### Get to know the data
 
-- [ ] **1.** The owner provides the current state of the bookshelf in a comma-separated values, or csv, file. To get you started, we have provided a function `load_books`, defined in **utils.py**.<br>
+- [x] **1.** The owner provides the current state of the bookshelf in a comma-separated values, or csv, file. To get you started, we have provided a function `load_books`, defined in **utils.py**.<br>
     Within **script.py**, we are loading the books from **books_small.csv**. This list of 10 books makes it easier to determine how the algorithms are behaving. We’ll use this to develop the algorithms and then we’ll try them out later on the larger file.<br>
     Add a `for` loop to print the titles within the bookshelf.
     <br>
@@ -26,12 +26,12 @@ The owner wants you to research methods of fixing the book ordering throughout t
     <br>
 
 
-- [ ] **2.** Today’s sorting is by title and looking at the bookshelf it’s pretty close. Some patrons have placed books back in slightly the wrong place.<br>
+- [x] **2.** Today’s sorting is by title and looking at the bookshelf it’s pretty close. Some patrons have placed books back in slightly the wrong place.<br>
     Before we start solving the problem, we need to do a bit of data manipulation to ensure that we compare books correctly. **Python’s built-in comparison operators compare letters lexicographically based on their Unicode code point.** You can determine the code point of characters using Python’s built-in `ord` function. For example to calculate the code point for “z” you would use the following code: `ord("z")` 
     <br>
 
 
-- [ ] **3.** You may have noticed that the uppercase letters have values less than their lowercase counterparts. When sorting, we don’t want to take into account the case of the letters. For example, “cats” should come before “Dogs”, even though `ord("c") > ord("D")` is `True`. <br>
+- [x] **3.** You may have noticed that the uppercase letters have values less than their lowercase counterparts. When sorting, we don’t want to take into account the case of the letters. For example, “cats” should come before “Dogs”, even though `ord("c") > ord("D")` is `True`. <br>
 
     We’ll make this happen by converting everything to lowercase prior to comparison. Since we need to do this often, lets save the lowercase author and title as attributes while loading the bookshelf in **utils.py**: <br>
     - `book['author_lower']`
@@ -45,13 +45,13 @@ The owner wants you to research methods of fixing the book ordering throughout t
     The code for performing bubble sort on an array of numbers is provided in **sorts.py**. However, we are sorting on books which are Python dictionaries. Further, the owner likes to change the ordering of books daily. To make the sort order flexible, add a parameter `comparison_function`. This will allow us to pass in a custom function for comparing the order of two books.
     <br>
 
-- [ ] **5.** Our comparison_function will take two parameters, and return True if the first one is “greater than” the second.
+- [x] **5.** Our comparison_function will take two parameters, and return True if the first one is “greater than” the second.
 
     Within the body of the bubble sort function, modify the comparison conditional statement to use the `comparison_function` instead of the built in operators `(if arr[idx] > arr[idx + 1]:)`.
     <br>
 
 
-- [ ] **6.** Now that we have a bubble sort algorithm that can work on books, let’s give it a shot. Within **script.py** define a sort comparison function, `by_title_ascending`.<br>
+- [x] **6.** Now that we have a bubble sort algorithm that can work on books, let’s give it a shot. Within **script.py** define a sort comparison function, `by_title_ascending`.<br>
     It should take `book_a` and `book_b` as arguments. 
     <br>
 
@@ -59,14 +59,14 @@ The owner wants you to research methods of fixing the book ordering throughout t
     <br>    
 
 
-- [ ] **7.** Sort the bookshelf using bubble sort. Save the result as `sort_1` and print the titles to the console to verify the order. 
+- [x] **7.** Sort the bookshelf using bubble sort. Save the result as `sort_1` and print the titles to the console to verify the order. 
     How many swaps were necessary? 
     <br>
 
 
 ### A new sorting order
 
-- [ ] **8.** The owner of the bookshop wants to sort by the author’s full name tomorrow. Define a new comparison function, `by_author_ascending`, within **script.py**. 
+- [x] **8.** The owner of the bookshop wants to sort by the author’s full name tomorrow. Define a new comparison function, `by_author_ascending`, within **script.py**. 
     <br>
 
     It should take `book_a` and `book_b` as arguments.
@@ -75,7 +75,7 @@ The owner wants you to research methods of fixing the book ordering throughout t
     It should return `True` if the `author_lower` of `book_a` is “greater than” the `author_lower` of `book_b` and `False` otherwise.
     <br>
 
-- [ ] **9.** Our sorting algorithms will alter the original bookshelf, so create a new copy of this data, bookshelf_v1.
+- [x] **9.** Our sorting algorithms will alter the original bookshelf, so create a new copy of this data, bookshelf_v1.
 
     This does **NOT** create a copy:
     ```py
@@ -90,7 +90,7 @@ The owner wants you to research methods of fixing the book ordering throughout t
 
 ### A new sorting algorithm
 
-- [ ] **11.** The number of swaps is getting to be high for even a small list like this. Let’s try implementing a different type of search: `quicksort`.
+- [x] **11.** The number of swaps is getting to be high for even a small list like this. Let’s try implementing a different type of search: `quicksort`.
     <br>
 
     The code for quicksort of a numeric array is in **sorts.py**. We need to modify it in a similar fashion that we modified bubble sort.
@@ -100,10 +100,10 @@ The owner wants you to research methods of fixing the book ordering throughout t
     <br>
 
 
-- [ ] **12.** Within the `quicksort()` function, be sure to pass `comparison_function` as the final argument for the recursive calls.
+- [x] **12.** Within the `quicksort()` function, be sure to pass `comparison_function` as the final argument for the recursive calls.
 <br>
 
-- [ ] **13.** The last modification we need to make to `quicksort()` is to update the comparison conditional. It is currently using the built in comparison:
+- [x] **13.** The last modification we need to make to `quicksort()` is to update the comparison conditional. It is currently using the built in comparison:
     ```py
     if pivot_element > list[i]:
     ```
@@ -111,11 +111,11 @@ The owner wants you to research methods of fixing the book ordering throughout t
     <br>
 
 
-- [ ] **14.** Within **script.py** create another copy of bookshelf called `bookshelf_v2`.
+- [x] **14.** Within **script.py** create another copy of bookshelf called `bookshelf_v2`.
 <br>
 
 
-- [ ] **15.** Perform `quicksort()`on `bookshelf_v2` using `by_author_ascending()`. This implementation operates on the input directly, so does not return a list. 
+- [x] **15.** Perform `quicksort()`on `bookshelf_v2` using `by_author_ascending()`. This implementation operates on the input directly, so does not return a list. 
     <br>
 
     Print the authors from `bookshelf_v2` to ensure they are now sorted correctly.
@@ -123,25 +123,25 @@ The owner wants you to research methods of fixing the book ordering throughout t
 
 ### The last sort
 
-- [ ] **16.** The owner has asked for one last sorting order, sorting by the length of the sum of the number of characters in the book and author’s name.
+- [x] **16.** The owner has asked for one last sorting order, sorting by the length of the sum of the number of characters in the book and author’s name.
     <br>
 
     Create a new comparison function, `by_total_length`. It should return `True` if the sum of characters in the title and author of `book_a` is “greater than” the sum in `book_b` and `False` otherwise.
     <br>
 
 
-- [ ] **17.** Load the long list of books from **books_large.csv** into a new variable, `long_bookshelf`. You can use the same `utils.load_books()` function that we used to load books_small.csv at the beginning of **script.py**.
+- [x] **17.** Load the long list of books from **books_large.csv** into a new variable, `long_bookshelf`. You can use the same `utils.load_books()` function that we used to load books_small.csv at the beginning of **script.py**.
 <br>
 
 
-- [ ] **18.** Run bubble sort on `long_bookshelf` using `by_total_length` as the comparison function. Does it seem slow?
+- [x] **18.** Run bubble sort on `long_bookshelf` using `by_total_length` as the comparison function. Does it seem slow?
 <br>
 
 
-- [ ] **19.** Comment out the bubble sort attempt and now try quicksort using the same comparison function. Does it live up to its name?
+- [x] **19.** Comment out the bubble sort attempt and now try quicksort using the same comparison function. Does it live up to its name?
 <br>
 
 
 ### More sorting
 
-- [ ] **20.** You’ve met the requirements of the project by the bookshop owner. If you’d like, play with creating your own comparison operators or other sorting functions.
+- [x] **20.** You’ve met the requirements of the project by the bookshop owner. If you’d like, play with creating your own comparison operators or other sorting functions.
